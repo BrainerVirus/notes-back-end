@@ -15,10 +15,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: |
+      - name: Create .env with Github Secrets and run script
+        run: |
           touch .env
-          echo MONGO_URI=${{ secrets.MONGO_URI }} >> .env
-          echo PORT=${{ secrets.PORT }} >> .env
+          echo MONGO_URI=$MONGO_URI >> .env
+          echo PORT=$PORT >> .env
       - run: npm ci
       - run: npm run tsc
       - run: npm run test
@@ -26,3 +27,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN  }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          PORT: ${{ secrets.PORT }}
