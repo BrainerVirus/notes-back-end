@@ -16,12 +16,12 @@ jobs:
         with:
           node-version: 18
       - run: |
-          echo "${{ secrets.MONGO_URI }}" > .env
-          echo "${{ secrets.PORT }}" > .env
+          echo "${{ env.MONGO_URI }}" > .env
+          echo "${{ env.PORT }}" > .env
       - run: npm ci
       - run: npm run tsc
       - run: npm run test
       - run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ env.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ env.NPM_TOKEN  }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN  }}
