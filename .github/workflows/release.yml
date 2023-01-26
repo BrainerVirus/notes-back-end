@@ -3,6 +3,7 @@ name: Release
 on:
   push:
 
+jobs:
   release:
     permissions:
       contents: write
@@ -14,8 +15,7 @@ on:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: "Create env file"
-        run: |
+      - run: |
           echo "${{ secrets.MONGO_URI }}" > .env
           echo "${{ secrets.PORT }}" > .env
       - run: npm ci
