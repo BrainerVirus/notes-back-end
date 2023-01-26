@@ -4,18 +4,6 @@ on:
   pull_request:
 
 jobs:
-    create_env_file:
-        runs-on: ubuntu-latest
-        steps:
-         - name: Create .env file
-           uses: skiddph/actions-env@v1.0.2
-           with:
-            file: .env
-            prefix: 'ENV_'
-           env:
-            MONGO_URI: ${{ secrets.MONGO_URI }} 
-            PORT: ${{ secrets.PORT }} 
-
   test:
     runs-on: ubuntu-latest
     steps:
