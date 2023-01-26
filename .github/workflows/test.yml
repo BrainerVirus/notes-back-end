@@ -14,3 +14,6 @@ jobs:
       - run: npm ci
       - run: npm run test
       - run: npm run tsc
+        env:
+          MONGO_URI: ${{ env.MONGO_URI  }}
+          PORT: ${{ env.PORT  }}
