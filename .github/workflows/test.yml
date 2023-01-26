@@ -4,16 +4,28 @@ on:
   pull_request:
 
 jobs:
+    create_env_file:
+        runs-on: ubuntu-latest
+        steps:
+         - name: Create .env file
+           uses: skiddph/actions-env@v1.0.2
+           with:
+            file: .env
+            prefix: 'ENV_'
+           env:
+            MONGO_URI: ${{ secrets.MONGO_URI }} 
+            PORT: ${{ secrets.PORT }} 
+
+jobs:
   test:
+  needs: create_env_file
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+      - uses: falti/dotenv-action@v1.0.2
         with:
           node-version: 18
       - run: npm ci
       - run: npm run test
       - run: npm run tsc
-        env:
-          MONGO_URI: ${{ env.MONGO_URI  }}
-          PORT: ${{ env.PORT  }}
