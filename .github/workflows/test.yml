@@ -13,8 +13,9 @@ jobs:
         with:
           node-version: 18
       - run: |
-          echo "${{ env.MONGO_URI }}" > .env
-          echo "${{ env.PORT }}" > .env
+          touch .env
+          echo MONGO_URI=${{ secrets.MONGO_URI }} >> .env
+          echo PORT=${{ secrets.PORT }} >> .env
       - run: npm ci
       - run: npm run test
       - run: npm run tsc
