@@ -23,13 +23,7 @@ jobs:
           touch .env
           echo MONGO_URI=$MONGO_URI >> .env
           echo PORT=$PORT >> .env
-          echo "cat .env"
-          cat .env
-          echo "ls -a ."
-          ls -a .
 
-           echo "ls -a ${{ github.workspace }}"
-           ls -a ${{ github.workspace }}
       - run: npm ci
       - run: npm run tsc
       - run: npm run test
