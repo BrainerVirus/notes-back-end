@@ -3,20 +3,7 @@ name: Release
 on:
   push:
 
-jobs:
-  create_env_file:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: skiddph/actions-env@v1.0.2
-        with:
-          file: .env
-          prefix: "ENV_"
-        env:
-          MONGO_URI: ${{ secrets.MONGO_URI }}
-          PORT: ${{ secrets.PORT }}
-
   release:
-    needs: create_env_file
     permissions:
       contents: write
       issues: write
@@ -27,6 +14,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+      - name: "Create env file"
+        run: |
+          echo "${{ secrets.MONGO_URI }}" > .env
+          echo "${{ secrets.PORT }}" > .env
       - run: npm ci
       - run: npm run tsc
       - run: npm run test
