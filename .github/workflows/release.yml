@@ -15,8 +15,7 @@ jobs:
            env:
             MONGO_URI: ${{ secrets.MONGO_URI }} 
             PORT: ${{ secrets.PORT }} 
-
-
+            
   release:
     permissions:
       contents: write
